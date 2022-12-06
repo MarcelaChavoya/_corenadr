@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/CDMX_1.js"></script>
+        <script src="data/Clasificacin_2.js"></script>
+        <script src="data/Calificacin_3.js"></script>
+        <script src="data/Agrcola_4.js"></script>
+        <script src="data/Ambiental_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[19.052850292029483,-99.54939151636779],[19.623872411892542,-98.71275991179633]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatelliteHybrid_0');
+        map.getPane('pane_GoogleSatelliteHybrid_0').style.zIndex = 400;
+        var layer_GoogleSatelliteHybrid_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatelliteHybrid_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+        });
+        layer_GoogleSatelliteHybrid_0;
+        map.addLayer(layer_GoogleSatelliteHybrid_0);
+        function pop_CDMX_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_ENT'] !== null ? autolinker.link(feature.properties['CVE_ENT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_ENT'] !== null ? autolinker.link(feature.properties['NOM_ENT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_CAP'] !== null ? autolinker.link(feature.properties['CVE_CAP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOM_CAP'] !== null ? autolinker.link(feature.properties['NOM_CAP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COV_'] !== null ? autolinker.link(feature.properties['COV_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COV_ID'] !== null ? autolinker.link(feature.properties['COV_ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PERIMETER'] !== null ? autolinker.link(feature.properties['PERIMETER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CDMX_1_0() {
+            return {
+                pane: 'pane_CDMX_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,205,225,0.596078431372549)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_CDMX_1');
+        map.getPane('pane_CDMX_1').style.zIndex = 401;
+        map.getPane('pane_CDMX_1').style['mix-blend-mode'] = 'normal';
+        var layer_CDMX_1 = new L.geoJson(json_CDMX_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_CDMX_1',
+            layerName: 'layer_CDMX_1',
+            pane: 'pane_CDMX_1',
+            onEachFeature: pop_CDMX_1,
+            style: style_CDMX_1_0,
+        });
+        bounds_group.addLayer(layer_CDMX_1);
+        map.addLayer(layer_CDMX_1);
+        function pop_Clasificacin_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Cuadrante'] !== null ? autolinker.link(feature.properties['Cuadrante'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Clase'] !== null ? autolinker.link(feature.properties['Clase'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Clasificacin_2_0(feature) {
+            switch(String(feature.properties['Clase'])) {
+                case 'ALTO':
+                    return {
+                pane: 'pane_Clasificacin_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,127,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'BAJO':
+                    return {
+                pane: 'pane_Clasificacin_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(250,230,14,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'MODERADO':
+                    return {
+                pane: 'pane_Clasificacin_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(3,253,20,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'MUY ALTO':
+                    return {
+                pane: 'pane_Clasificacin_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,65,30,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Clasificacin_2');
+        map.getPane('pane_Clasificacin_2').style.zIndex = 402;
+        map.getPane('pane_Clasificacin_2').style['mix-blend-mode'] = 'normal';
+        var layer_Clasificacin_2 = new L.geoJson(json_Clasificacin_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Clasificacin_2',
+            layerName: 'layer_Clasificacin_2',
+            pane: 'pane_Clasificacin_2',
+            onEachFeature: pop_Clasificacin_2,
+            style: style_Clasificacin_2_0,
+        });
+        bounds_group.addLayer(layer_Clasificacin_2);
+        map.addLayer(layer_Clasificacin_2);
+        function pop_Calificacin_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Cuadrante</th>\
+                        <td>' + (feature.properties['Cuadrante'] !== null ? autolinker.link(feature.properties['Cuadrante'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. actividades </th>\
+                        <td>' + (feature.properties['No. actividades '] !== null ? autolinker.link(feature.properties['No. actividades '].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Unidades</th>\
+                        <td>' + (feature.properties['Unidades'] !== null ? autolinker.link(feature.properties['Unidades'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Área reforestada (ha)</th>\
+                        <td>' + (feature.properties['Área reforestada (ha)'] !== null ? autolinker.link(feature.properties['Área reforestada (ha)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Calificación ambiental</th>\
+                        <td>' + (feature.properties['Calificación ambiental'] !== null ? autolinker.link(feature.properties['Calificación ambiental'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Monto (M.N.)</th>\
+                        <td>' + (feature.properties['Monto (M.N.)'] !== null ? autolinker.link(feature.properties['Monto (M.N.)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Área (ha)</th>\
+                        <td>' + (feature.properties['Área (ha)'] !== null ? autolinker.link(feature.properties['Área (ha)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Calificación agrícola</th>\
+                        <td>' + (feature.properties['Calificación agrícola'] !== null ? autolinker.link(feature.properties['Calificación agrícola'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Calificación final</th>\
+                        <td>' + (feature.properties['Calificación final'] !== null ? autolinker.link(feature.properties['Calificación final'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Calificacin_3_0(feature) {
+            if (feature.properties['Calificación final'] >= 0.010000 && feature.properties['Calificación final'] <= 0.204000 ) {
+                return {
+                pane: 'pane_Calificacin_3',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(188,220,60,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación final'] >= 0.204000 && feature.properties['Calificación final'] <= 1.158000 ) {
+                return {
+                pane: 'pane_Calificacin_3',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(179,171,59,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación final'] >= 1.158000 && feature.properties['Calificación final'] <= 2.920000 ) {
+                return {
+                pane: 'pane_Calificacin_3',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(169,121,59,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación final'] >= 2.920000 && feature.properties['Calificación final'] <= 6.796000 ) {
+                return {
+                pane: 'pane_Calificacin_3',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(160,71,58,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación final'] >= 6.796000 && feature.properties['Calificación final'] <= 35.710000 ) {
+                return {
+                pane: 'pane_Calificacin_3',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(150,22,58,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Calificacin_3');
+        map.getPane('pane_Calificacin_3').style.zIndex = 403;
+        map.getPane('pane_Calificacin_3').style['mix-blend-mode'] = 'normal';
+        var layer_Calificacin_3 = new L.geoJson(json_Calificacin_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Calificacin_3',
+            layerName: 'layer_Calificacin_3',
+            pane: 'pane_Calificacin_3',
+            onEachFeature: pop_Calificacin_3,
+            style: style_Calificacin_3_0,
+        });
+        bounds_group.addLayer(layer_Calificacin_3);
+        map.addLayer(layer_Calificacin_3);
+        function pop_Agrcola_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Cuadrante</th>\
+                        <td>' + (feature.properties['Cuadrante'] !== null ? autolinker.link(feature.properties['Cuadrante'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Monto (M.N.)</th>\
+                        <td>' + (feature.properties['Monto (M.N.)'] !== null ? autolinker.link(feature.properties['Monto (M.N.)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Superficie (ha)</th>\
+                        <td>' + (feature.properties['Superficie (ha)'] !== null ? autolinker.link(feature.properties['Superficie (ha)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Calificación agrícola</th>\
+                        <td>' + (feature.properties['Calificación agrícola'] !== null ? autolinker.link(feature.properties['Calificación agrícola'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Agrcola_4_0(feature) {
+            if (feature.properties['Calificación agrícola'] >= 0.000000 && feature.properties['Calificación agrícola'] <= 0.000000 ) {
+                return {
+                pane: 'pane_Agrcola_4',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(188,220,60,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación agrícola'] >= 0.000000 && feature.properties['Calificación agrícola'] <= 0.102000 ) {
+                return {
+                pane: 'pane_Agrcola_4',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(179,171,59,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación agrícola'] >= 0.102000 && feature.properties['Calificación agrícola'] <= 3.378000 ) {
+                return {
+                pane: 'pane_Agrcola_4',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(169,121,59,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación agrícola'] >= 3.378000 && feature.properties['Calificación agrícola'] <= 11.360000 ) {
+                return {
+                pane: 'pane_Agrcola_4',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(160,71,58,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación agrícola'] >= 11.360000 && feature.properties['Calificación agrícola'] <= 67.110000 ) {
+                return {
+                pane: 'pane_Agrcola_4',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(150,22,58,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Agrcola_4');
+        map.getPane('pane_Agrcola_4').style.zIndex = 404;
+        map.getPane('pane_Agrcola_4').style['mix-blend-mode'] = 'normal';
+        var layer_Agrcola_4 = new L.geoJson(json_Agrcola_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Agrcola_4',
+            layerName: 'layer_Agrcola_4',
+            pane: 'pane_Agrcola_4',
+            onEachFeature: pop_Agrcola_4,
+            style: style_Agrcola_4_0,
+        });
+        bounds_group.addLayer(layer_Agrcola_4);
+        map.addLayer(layer_Agrcola_4);
+        function pop_Ambiental_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Cuadrante</th>\
+                        <td>' + (feature.properties['Cuadrante'] !== null ? autolinker.link(feature.properties['Cuadrante'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No. actividades</th>\
+                        <td>' + (feature.properties['No. actividades'] !== null ? autolinker.link(feature.properties['No. actividades'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Unidades</th>\
+                        <td>' + (feature.properties['Unidades'] !== null ? autolinker.link(feature.properties['Unidades'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Área reforestada</th>\
+                        <td>' + (feature.properties['Área reforestada'] !== null ? autolinker.link(feature.properties['Área reforestada'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Calificación ambiental</th>\
+                        <td>' + (feature.properties['Calificación ambiental'] !== null ? autolinker.link(feature.properties['Calificación ambiental'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Ambiental_5_0(feature) {
+            if (feature.properties['Calificación ambiental'] >= 0.000000 && feature.properties['Calificación ambiental'] <= 0.050000 ) {
+                return {
+                pane: 'pane_Ambiental_5',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(188,220,60,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación ambiental'] >= 0.050000 && feature.properties['Calificación ambiental'] <= 0.310000 ) {
+                return {
+                pane: 'pane_Ambiental_5',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(179,171,59,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación ambiental'] >= 0.310000 && feature.properties['Calificación ambiental'] <= 0.990000 ) {
+                return {
+                pane: 'pane_Ambiental_5',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(169,121,59,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación ambiental'] >= 0.990000 && feature.properties['Calificación ambiental'] <= 2.820000 ) {
+                return {
+                pane: 'pane_Ambiental_5',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(160,71,58,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Calificación ambiental'] >= 2.820000 && feature.properties['Calificación ambiental'] <= 20.400000 ) {
+                return {
+                pane: 'pane_Ambiental_5',
+                opacity: 1,
+                color: 'rgba(150,170,152,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(150,22,58,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Ambiental_5');
+        map.getPane('pane_Ambiental_5').style.zIndex = 405;
+        map.getPane('pane_Ambiental_5').style['mix-blend-mode'] = 'normal';
+        var layer_Ambiental_5 = new L.geoJson(json_Ambiental_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Ambiental_5',
+            layerName: 'layer_Ambiental_5',
+            pane: 'pane_Ambiental_5',
+            onEachFeature: pop_Ambiental_5,
+            style: style_Ambiental_5_0,
+        });
+        bounds_group.addLayer(layer_Ambiental_5);
+        map.addLayer(layer_Ambiental_5);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Ambiental<br /><table><tr><td style="text-align: center;"><img src="legend/Ambiental_5_00050.png" /></td><td>0 - 0.05</td></tr><tr><td style="text-align: center;"><img src="legend/Ambiental_5_0050311.png" /></td><td>0.05 - 0.31</td></tr><tr><td style="text-align: center;"><img src="legend/Ambiental_5_0310992.png" /></td><td>0.31 - 0.99</td></tr><tr><td style="text-align: center;"><img src="legend/Ambiental_5_0992823.png" /></td><td>0.99 - 2.82</td></tr><tr><td style="text-align: center;"><img src="legend/Ambiental_5_2822044.png" /></td><td>2.82 - 20.4</td></tr></table>': layer_Ambiental_5,'Agrícola<br /><table><tr><td style="text-align: center;"><img src="legend/Agrcola_4_000.png" /></td><td>0 - 0</td></tr><tr><td style="text-align: center;"><img src="legend/Agrcola_4_0011.png" /></td><td>0 - 0.1</td></tr><tr><td style="text-align: center;"><img src="legend/Agrcola_4_013382.png" /></td><td>0.1 - 3.38</td></tr><tr><td style="text-align: center;"><img src="legend/Agrcola_4_33811363.png" /></td><td>3.38 - 11.36</td></tr><tr><td style="text-align: center;"><img src="legend/Agrcola_4_113667114.png" /></td><td>11.36 - 67.11</td></tr></table>': layer_Agrcola_4,'Calificación<br /><table><tr><td style="text-align: center;"><img src="legend/Calificacin_3_001020.png" /></td><td>0.01 - 0.2</td></tr><tr><td style="text-align: center;"><img src="legend/Calificacin_3_021161.png" /></td><td>0.2 - 1.16</td></tr><tr><td style="text-align: center;"><img src="legend/Calificacin_3_1162922.png" /></td><td>1.16 - 2.92</td></tr><tr><td style="text-align: center;"><img src="legend/Calificacin_3_292683.png" /></td><td>2.92 - 6.8</td></tr><tr><td style="text-align: center;"><img src="legend/Calificacin_3_6835714.png" /></td><td>6.8 - 35.71</td></tr></table>': layer_Calificacin_3,'Clasificación<br /><table><tr><td style="text-align: center;"><img src="legend/Clasificacin_2_ALTO0.png" /></td><td>ALTO</td></tr><tr><td style="text-align: center;"><img src="legend/Clasificacin_2_BAJO1.png" /></td><td>BAJO</td></tr><tr><td style="text-align: center;"><img src="legend/Clasificacin_2_MODERADO2.png" /></td><td>MODERADO</td></tr><tr><td style="text-align: center;"><img src="legend/Clasificacin_2_MUYALTO3.png" /></td><td>MUY ALTO</td></tr></table>': layer_Clasificacin_2,'<img src="legend/CDMX_1.png" /> CDMX': layer_CDMX_1,"Google Satellite Hybrid": layer_GoogleSatelliteHybrid_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
